@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { Check } from "@bigbinary/neeto-icons";
 import { Formik, Form } from "formik";
+import { Check } from "neetoicons";
 import { Button, Pane, Toastr } from "neetoui";
 import { Input, Textarea, Select } from "neetoui/formik";
 
@@ -53,14 +53,14 @@ export default function NoteForm({ onClose, refetch, note, isEdit }) {
               rows={3}
             />
             <Select
+              isSearchable
+              required
               defaultValue={{
                 label: "Jacob Jones",
                 value: "Jacob Jones",
               }}
-              isSearchable
               label="Assigned Contact"
               name="assignedContact"
-              required
               className="w-full flex-grow-0"
               options={[
                 {
@@ -75,16 +75,16 @@ export default function NoteForm({ onClose, refetch, note, isEdit }) {
               placeholder="Select contact"
             />
             <Select
+              isSearchable
+              isMulti
+              required
               defaultValue={{
                 label: "Sales",
                 value: "Sales",
               }}
-              isSearchable
               label="Tags"
               name="ValueList"
               className="w-full flex-grow-0"
-              isMulti
-              required
               options={[
                 {
                   label: "Sales",

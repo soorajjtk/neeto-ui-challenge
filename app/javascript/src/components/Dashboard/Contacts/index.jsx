@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "neetoui";
 import { Container, Header } from "neetoui/layouts";
 
-import Menubar from "components/Common/Menubar";
+import { Menubar } from "components/Common";
 import Table from "components/Dashboard/Contacts/Table";
 
 import { CONTACTS_DATA, MENUBAR_DATA } from "./constants";
@@ -23,6 +23,7 @@ function Contacts() {
       />
       <Container>
         <Header
+          menuBarToggle
           title="Contacts"
           actionBlock={
             <Button
@@ -36,7 +37,6 @@ function Contacts() {
             value: searchTerm,
             onChange: e => setSearchTerm(e.target.value),
           }}
-          menuBarToggle
         />
         <Table contacts={CONTACTS_DATA} />
         <NewContactPane
