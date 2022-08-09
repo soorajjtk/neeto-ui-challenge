@@ -5,30 +5,13 @@ import { Button, PageLoader } from "neetoui";
 import { Container, Header } from "neetoui/layouts";
 
 import notesApi from "apis/notes";
-import EmptyState from "components/Common/EmptyState";
-import Menubar from "components/Common/Menubar";
+import { EmptyState, Menubar } from "components/Common";
 
 import Card from "./Card";
 import { MENUBAR_DATA } from "./constants";
 import DeleteAlert from "./DeleteAlert";
 import NewNotePane from "./Pane/Create";
-
-const convertDateToWeekdayTime = date => {
-  const dateTime = new Date(date);
-  const weekday = dateTime.toLocaleString("en-us", { weekday: "long" });
-  const time = dateTime.toLocaleString("en-US", {
-    hour: "numeric",
-    hour12: true,
-  });
-  return `${weekday}, ${time}`;
-};
-
-const calculateHoursAgo = date => {
-  const dateTime = new Date(date);
-  const currentDateTime = new Date();
-  const hours = Math.abs(currentDateTime.getTime() - dateTime.getTime()) / 36e5;
-  return Math.round(hours);
-};
+import { convertDateToWeekdayTime, calculateCreatedAgo } from "./utils";
 
 const Notes = () => {
   const [loading, setLoading] = useState(true);
@@ -55,7 +38,7 @@ const Notes = () => {
       const populatedNotes = data.notes.map(note => ({
         ...note,
         time: convertDateToWeekdayTime(note.created_at),
-        createdAgo: calculateHoursAgo(note.created_at),
+        createdAgo: calculateCreatedAgo(note.created_at),
       }));
       setNotes(populatedNotes);
     } catch (error) {
@@ -74,6 +57,7 @@ const Notes = () => {
       <Menubar title="Notes" options={MENUBAR_DATA} setCategory={setCategory} />
       <Container>
         <Header
+          menuBarToggle
           title={category}
           actionBlock={
             <Button
@@ -87,7 +71,6 @@ const Notes = () => {
             value: searchTerm,
             onChange: e => setSearchTerm(e.target.value),
           }}
-          menuBarToggle
         />
         {notes.length ? (
           <>
