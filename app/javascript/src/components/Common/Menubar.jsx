@@ -18,7 +18,6 @@ function Menubar({ title, options, setCategory }) {
           onClick={() => setCategory(head.title)}
         />
       ))}
-
       <MenuBar.SubTitle
         iconProps={[
           {
@@ -75,6 +74,7 @@ function Menubar({ title, options, setCategory }) {
     </MenuBar>
   );
 }
+
 Menubar.propTypes = {
   title: PropTypes.string,
   options: PropTypes.object,
